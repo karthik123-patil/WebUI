@@ -235,7 +235,7 @@ class TeachCompanyApp extends StatelessWidget {
               child: const DiscoverMoreExploreSection(),
             ),
             SizedBox(
-              height: 600, // Ensure minimum height
+              height: 852, // Ensure minimum height
               child: const FooterWidget(),
             ),
           ],

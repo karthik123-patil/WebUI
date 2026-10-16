@@ -23,128 +23,122 @@ class _SolutionsGridSectionState extends State<SolutionsGridSection> {
     return Scaffold(
       backgroundColor: Colors.white, // Light background matching Figma design
       body: Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: isDesktop ? 120.0 : 30.0,
-            vertical: 80.0,
-          ),
-          child: Wrap(
-            spacing: 30,
-            runSpacing: 30,
-            alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: [
-              // 1. LEFT FEATURED HERO CARD (Secure Cube Image + Text Overlay)
-              Container(
-                width: 340,
-                height: 520,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                clipBehavior: Clip.antiAlias,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    // Background Image (Replace with your asset image e.g., 'assets/images/cube.png')
-                    Image.asset(
-                      'assets/images/sol.jpg',
-                      fit: BoxFit.cover,
-                    ),
+        child: Wrap(
+          spacing: 30,
+          runSpacing: 30,
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            // 1. LEFT FEATURED HERO CARD (Secure Cube Image + Text Overlay)
+            Container(
+              width: 340,
+              height: 520,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    blurRadius: 20,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              clipBehavior: Clip.antiAlias,
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  // Background Image (Replace with your asset image e.g., 'assets/images/cube.png')
+                  Image.asset(
+                    'assets/images/sol.jpg',
+                    fit: BoxFit.cover,
+                  ),
 
-                    // Dark gradient overlay for bottom text legibility
-                    Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.transparent,
-                            Colors.black.withOpacity(0.7),
-                            Colors.black.withOpacity(0.95),
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          stops: const [0.3, 0.7, 1.0],
-                        ),
-                      ),
-                    ),
-
-                    // Bottom Text Overlay matching Figma
-                    Padding(
-                      padding: const EdgeInsets.all(28.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Illo sint\nvoluptas. Error\nvoluptates',
-                            style: GoogleFonts.manrope(
-                              fontSize: 36,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white,
-                              height: 1.48,
-                            ),
-                          ),
+                  // Dark gradient overlay for bottom text legibility
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.transparent,
+                          Colors.black.withOpacity(0.7),
+                          Colors.black.withOpacity(0.95),
                         ],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        stops: const [0.3, 0.7, 1.0],
                       ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
 
-              // 2. RIGHT 2x2 GRID CARDS WITH ON-HOVER INTERACTION
-              SizedBox(
-                width: 720,
-                child: Wrap(
-                  spacing: 24,
-                  runSpacing: 24,
-                  children: [
-                    _buildHoverCard(
-                      title: 'Analyze',
-                      icon: Icons.science_outlined,
-                      subheading: 'Subheading : Illo sint voluptas. Error voluptates culpa eligendi.',
-                      description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. '
-                          'Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur '
-                          'nulla deserunt vel. Iusto corrupti dicta.',
-                      cardKey: 'Analyze',
+                  // Bottom Text Overlay matching Figma
+                  Padding(
+                    padding: const EdgeInsets.all(28.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Illo sint\nvoluptas. Error\nvoluptates',
+                          style: GoogleFonts.manrope(
+                            fontSize: 36,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            height: 1.48,
+                          ),
+                        ),
+                      ],
                     ),
-                    _buildHoverCard(
-                      title: 'Extinguish',
-                      icon: Icons.security_outlined,
-                      subheading: 'Subheading : Illo sint voluptas. Error voluptates culpa eligendi.',
-                      description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. '
-                          'Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur '
-                          'nulla deserunt vel. Iusto corrupti dicta.',
-                      cardKey: 'Extinguish',
-                    ),
-                    _buildHoverCard(
-                      title: 'Scale',
-                      icon: Icons.trending_up,
-                      subheading: 'Subheading : Illo sint voluptas. Error voluptates culpa eligendi.',
-                      description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. '
-                          'Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur '
-                          'nulla deserunt vel. Iusto corrupti dicta.',
-                      cardKey: 'Scale',
-                    ),
-                    _buildHoverCard(
-                      title: 'Peace',
-                      icon: Icons.self_improvement,
-                      subheading: 'Subheading : Illo sint voluptas. Error voluptates culpa eligendi.',
-                      description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. '
-                          'Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur '
-                          'nulla deserunt vel. Iusto corrupti dicta.',
-                      cardKey: 'Peace',
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+
+            // 2. RIGHT 2x2 GRID CARDS WITH ON-HOVER INTERACTION
+            SizedBox(
+              width: 720,
+              child: Wrap(
+                spacing: 24,
+                runSpacing: 24,
+                children: [
+                  _buildHoverCard(
+                    title: 'Analyze',
+                    icon: Icons.science_outlined,
+                    subheading: 'Subheading : Illo sint voluptas. Error voluptates culpa eligendi.',
+                    description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. '
+                        'Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur '
+                        'nulla deserunt vel. Iusto corrupti dicta.',
+                    cardKey: 'Analyze',
+                  ),
+                  _buildHoverCard(
+                    title: 'Extinguish',
+                    icon: Icons.security_outlined,
+                    subheading: 'Subheading : Illo sint voluptas. Error voluptates culpa eligendi.',
+                    description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. '
+                        'Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur '
+                        'nulla deserunt vel. Iusto corrupti dicta.',
+                    cardKey: 'Extinguish',
+                  ),
+                  _buildHoverCard(
+                    title: 'Scale',
+                    icon: Icons.trending_up,
+                    subheading: 'Subheading : Illo sint voluptas. Error voluptates culpa eligendi.',
+                    description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. '
+                        'Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur '
+                        'nulla deserunt vel. Iusto corrupti dicta.',
+                    cardKey: 'Scale',
+                  ),
+                  _buildHoverCard(
+                    title: 'Peace',
+                    icon: Icons.self_improvement,
+                    subheading: 'Subheading : Illo sint voluptas. Error voluptates culpa eligendi.',
+                    description: 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. '
+                        'Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur '
+                        'nulla deserunt vel. Iusto corrupti dicta.',
+                    cardKey: 'Peace',
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

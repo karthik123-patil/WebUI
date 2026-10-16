@@ -466,151 +466,149 @@ class ExploreScreen extends StatelessWidget {
       //     const SizedBox(width: 16),
       //   ],
       // ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Screen 2 Header banner
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 24),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFF0F2027),
-                    Color(0xFF203A43),
-                    Color(0xFF2C5364),
-                  ],
+      body: Column(
+        children: [
+          // Screen 2 Header banner
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 24),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFF0F2027),
+                  Color(0xFF203A43),
+                  Color(0xFF2C5364),
+                ],
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const [
+                Text(
+                  'Screen 2: Detailed Candidate Hub',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    'Screen 2: Detailed Candidate Hub',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Explore advanced topics, career paths, and technical assessments tailored for top Flutter candidates.',
-                    style: TextStyle(fontSize: 14, color: Colors.white70),
-                  ),
-                ],
-              ),
+                SizedBox(height: 10),
+                Text(
+                  'Explore advanced topics, career paths, and technical assessments tailored for top Flutter candidates.',
+                  style: TextStyle(fontSize: 14, color: Colors.white70),
+                ),
+              ],
             ),
+          ),
 
-            // Detailed List / Grid items specific to Screen 2
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Available Modules & Programs',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+          // Detailed List / Grid items specific to Screen 2
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Available Modules & Programs',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 16),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: 4,
-                    itemBuilder: (context, index) {
-                      final titles = [
-                        'Flutter Web Performance Optimization',
-                        'State Management Masterclass (Bloc & Riverpod)',
-                        'Custom Painter & Advanced UI Animations',
-                        'CI/CD Pipelines for Flutter Applications',
-                      ];
-                      final subtitles = [
-                        'Learn canvas kit rendering, asset preloading, and startup time reduction.',
-                        'Compare state management architectures for large-scale enterprise solutions.',
-                        'Build stunning interactive widgets and particle effects from scratch.',
-                        'Automate deployment across Play Store, App Store, and Web hosting platforms.',
-                      ];
+                ),
+                const SizedBox(height: 16),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    final titles = [
+                      'Flutter Web Performance Optimization',
+                      'State Management Masterclass (Bloc & Riverpod)',
+                      'Custom Painter & Advanced UI Animations',
+                      'CI/CD Pipelines for Flutter Applications',
+                    ];
+                    final subtitles = [
+                      'Learn canvas kit rendering, asset preloading, and startup time reduction.',
+                      'Compare state management architectures for large-scale enterprise solutions.',
+                      'Build stunning interactive widgets and particle effects from scratch.',
+                      'Automate deployment across Play Store, App Store, and Web hosting platforms.',
+                    ];
 
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 16),
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF131B2E),
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.white10),
-                        ),
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: Colors.blue.withOpacity(0.15),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Icon(
-                                Icons.code,
-                                color: Colors.blueAccent,
-                                size: 28,
-                              ),
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFF131B2E),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.white10),
+                      ),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.withOpacity(0.15),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    titles[index],
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    subtitles[index],
-                                    style: const TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.white60,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            child: const Icon(
+                              Icons.code,
+                              color: Colors.blueAccent,
+                              size: 28,
                             ),
-                            ElevatedButton(
-                              onPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'Enrolled in: ${titles[index]}',
-                                    ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  titles[index],
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: Colors.white,
                                   ),
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
-                              ),
-                              child: const Text('View'),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  subtitles[index],
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.white60,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Enrolled in: ${titles[index]}',
+                                  ),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                            ),
+                            child: const Text('View'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
+          ),
 
-            // FOOTER
-            const FooterWidget(),
-          ],
-        ),
+          // FOOTER
+          const FooterWidget(),
+        ],
       ),
     );
   }
