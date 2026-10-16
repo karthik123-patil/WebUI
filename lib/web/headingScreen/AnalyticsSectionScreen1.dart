@@ -23,16 +23,16 @@ class _AnalyticsSectionScreenState extends State<AnalyticsSectionScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFF4F6FB),
       body: Center(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: isDesktop ? 100.0 : 30.0, vertical: 60.0),
-          child: Flex(
-            direction: isDesktop ? Axis.horizontal : Axis.vertical,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // 1. LEFT SIDE: Heading & Description
-              SizedBox(
-                width: isDesktop ? 450 : double.infinity,
+        child: Flex(
+          direction: isDesktop ? Axis.horizontal : Axis.vertical,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // 1. LEFT SIDE: Heading & Description
+            SizedBox(
+              width: isDesktop ? 450 : double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 150,top: 100),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -78,94 +78,94 @@ class _AnalyticsSectionScreenState extends State<AnalyticsSectionScreen> {
                   ],
                 ),
               ),
+            ),
 
-              const SizedBox(height: 50, width: 50),
+            const SizedBox(height: 50, width: 50),
 
-              // 2. RIGHT SIDE: Circular Radar UI with On-Hover Quadrant Highlighting (No Popup)
-              SizedBox(
-                width: 620,
-                height: 620,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    // Outer background dark radar rings
-                    // _buildRing(420, const Color(0xFFD6E0F0)),
-                    // _buildRing(620, const Color(0xFF000000)),
-                    _buildRing(540, const Color(0xFFC1C9F8)),
-                    _buildRing(390, const Color(0xFFADC6EE)),
+            // 2. RIGHT SIDE: Circular Radar UI with On-Hover Quadrant Highlighting (No Popup)
+            SizedBox(
+              width: 620,
+              height: 620,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // Outer background dark radar rings
+                  // _buildRing(420, const Color(0xFFD6E0F0)),
+                  // _buildRing(620, const Color(0xFF000000)),
+                  _buildRing(540, const Color(0xFFC1C9F8)),
+                  _buildRing(390, const Color(0xFFADC6EE)),
 
-                    // Dynamic Quadrant Sector Highlighting based on hovered node
-                    if (selectedNode.isNotEmpty)
-                      _buildSelectedQuadrant(selectedNode),
+                  // Dynamic Quadrant Sector Highlighting based on hovered node
+                  if (selectedNode.isNotEmpty)
+                    _buildSelectedQuadrant(selectedNode),
 
-                    // Central Core Model Circle
-                    Container(
-                      width: 200,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: const LinearGradient(
-                          colors: [
-                            Color(0xFF165BE5),
-                            Color(0xFF1D3566)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.blue.withOpacity(0.4),
-                            blurRadius: 25,
-                            spreadRadius: 5,
-                          ),
-                        ],
+                  // Central Core Model Circle
+                  Container(
+                    width: 200,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: const LinearGradient(
+                        colors: [
+                          Color(0xFF165BE5),
+                          Color(0xFF1D3566)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                      child: Center(
-                        child: Text(
-                          'CORE\nMODEL',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.manrope(
-                            fontSize: 32.0,            // Size/3XL (~32px)
-                            fontWeight: FontWeight.w800, // ExtraBold
-                            fontStyle: FontStyle.normal,
-                            height: 1.32,       // line-height: 32px (1.0 multiplier)
-                            letterSpacing: 0.0,        // letter-spacing: None
-                          ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.blue.withOpacity(0.4),
+                          blurRadius: 25,
+                          spreadRadius: 5,
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        'CORE\nMODEL',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.manrope(
+                          fontSize: 32.0,            // Size/3XL (~32px)
+                          fontWeight: FontWeight.w800, // ExtraBold
+                          fontStyle: FontStyle.normal,
+                          height: 1.32,       // line-height: 32px (1.0 multiplier)
+                          letterSpacing: 0.0,        // letter-spacing: None
                         ),
                       ),
                     ),
+                  ),
 
-                    // Node 1: Enabled (Top-Left)
-                    Positioned(
-                      top: 140,
-                      left: 140,
-                      child: _buildNodeItem('Enabled', "assets/images/thirdscreen/img_4.png"),
-                    ),
+                  // Node 1: Enabled (Top-Left)
+                  Positioned(
+                    top: 140,
+                    left: 140,
+                    child: _buildNodeItem('Enabled', "assets/images/thirdscreen/img_4.png"),
+                  ),
 
-                    // Node 2: Clean (Top-Right)
-                    Positioned(
-                      top: 140,
-                      right: 140,
-                      child: _buildNodeItem('Clean', "assets/images/thirdscreen/img_1.png"),
-                    ),
+                  // Node 2: Clean (Top-Right)
+                  Positioned(
+                    top: 140,
+                    right: 140,
+                    child: _buildNodeItem('Clean', "assets/images/thirdscreen/img_1.png"),
+                  ),
 
-                    // Node 3: Reliable (Bottom-Left)
-                    Positioned(
-                      bottom: 130,
-                      left: 130,
-                      child: _buildNodeItem('Reliable', "assets/images/thirdscreen/img_3.png"),
-                    ),
+                  // Node 3: Reliable (Bottom-Left)
+                  Positioned(
+                    bottom: 130,
+                    left: 130,
+                    child: _buildNodeItem('Reliable', "assets/images/thirdscreen/img_3.png"),
+                  ),
 
-                    // Node 4: Organized (Bottom-Right)
-                    Positioned(
-                      bottom: 130,
-                      right: 130,
-                      child: _buildNodeItem('Organized',  "assets/images/thirdscreen/img_2.png"),
-                    ),
-                  ],
-                ),
+                  // Node 4: Organized (Bottom-Right)
+                  Positioned(
+                    bottom: 130,
+                    right: 130,
+                    child: _buildNodeItem('Organized',  "assets/images/thirdscreen/img_2.png"),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

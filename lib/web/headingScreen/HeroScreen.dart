@@ -1,10 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../config/textStyles.dart';
 
-class HeroScreen extends StatelessWidget {
+class HeroScreen extends StatefulWidget {
   const HeroScreen({super.key});
+
+  @override
+  State<HeroScreen> createState() => _HeroScreenState();
+}
+
+class _HeroScreenState extends State<HeroScreen> {
+  late VideoPlayerController _videoController;
+
+  @override
+  void initState() {
+    super.initState();
+    _videoController = VideoPlayerController.asset('assets/videos/v1.mp4')
+      ..initialize().then((_) {
+        setState(() {});
+        _videoController.play();
+        _videoController.setLooping(true);
+        _videoController.setVolume(1.0);
+      }).catchError((error) {
+        print("Error loading video: $error");
+      });
+  }
+
+  @override
+  void dispose() {
+    _videoController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,26 +42,32 @@ class HeroScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // 1. Background Particle / Fiber-Optic Image Effect
+          // 1. Background Video Player
           Positioned.fill(
             child: Opacity(
               opacity: 0.6,
-              child: Image.network(
-                'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2000&auto=format&fit=crop',
-                // Replace with your exact asset image
-                fit: BoxFit.cover,
-              ),
+              child: _videoController.value.isInitialized
+                  ? SizedBox.expand(
+                child: FittedBox(
+                  fit: BoxFit.cover,
+                  child: SizedBox(
+                    width: _videoController.value.size.width,
+                    height: _videoController.value.size.height,
+                    child: VideoPlayer(_videoController),
+                  ),
+                ),
+              )
+                  : Container(color: Colors.white),
             ),
           ),
 
-          // Gradient overlay to fade background seamlessly into pure dark left/bottom
+          // Gradient overlay
           Positioned.fill(
             child: Container(
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
                     Color(0xFF03050A),
-                    // Solid dark on the left for text readability
                     Colors.transparent,
                     Color(0xFF03050A),
                   ],
@@ -58,132 +92,129 @@ class HeroScreen extends StatelessWidget {
             ),
           ),
 
-          // 2. Top-Right Decorative Dot Grid Pattern
-          Positioned(
-            top: 100,
-            right: 40,
-            child: _buildDotGrid(rows: 8, cols: 14),
-          ),
+          // 2. Top-Right Decorative Dot Grid Pattern (Hidden on small screens)
+          if (isDesktop)
+            Positioned(
+              top: 100,
+              right: 40,
+              child: _buildDotGrid(rows: 8, cols: 14),
+            ),
 
-          // 3. Main Screen Layout (Header + Hero Body)
+          // 3. Main Screen Layout (Header + Responsive Body)
           SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // NAVBAR / HEADER
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 20.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      // Brand Logo
-                      Text(
-                        'TC Teach Company',
-                        style: AppTextStyles.tcTeachComp,
-                      ),
-
-                      // Right Navigation Items
-                      if (isDesktop)
-                        Row(
-                          children: [
-                            _navLink('Products'),
-                            _navLink('Solutions'),
-                            _navLink('Partnerships'),
-                            _navLink('Company'),
-                            const SizedBox(width: 20),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF1E6BFF),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 24,
-                                  vertical: 14,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: isDesktop ? 40.0 : 20.0,
+                  vertical: 20.0,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // NAVBAR / HEADER
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'TC Teach Company',
+                          style: AppTextStyles.tcTeachComp,
+                        ),
+                        if (isDesktop)
+                          Row(
+                            children: [
+                              _navLink('Products'),
+                              _navLink('Solutions'),
+                              _navLink('Partnerships'),
+                              _navLink('Company'),
+                              const SizedBox(width: 20),
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF1E6BFF),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24,
+                                    vertical: 14,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  elevation: 0,
                                 ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                                onPressed: () {},
+                                child: const Text(
+                                  'Contact Us',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                  ),
                                 ),
-                                elevation: 0,
                               ),
-                              onPressed: () {},
-                              child: const Text(
-                                'Contact Us',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                ),
+                            ],
+                          )
+                        else
+                          IconButton(
+                            icon: const Icon(Icons.menu, color: Colors.white),
+                            onPressed: () {},
+                          ),
+                      ],
+                    ),
+
+                    SizedBox(height: isDesktop ? 120 : 80),
+
+                    // HERO CONTENT (Responsive spacing and dimensions)
+                    Padding(
+                      padding: EdgeInsets.only(left: isDesktop ? 110.0 : 0.0),
+                      child: SizedBox(
+                        width: isDesktop ? 540 : screenWidth - 40,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Heading :',
+                              style: TextStyle(
+                                fontSize: isDesktop ? 64 : 36,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                letterSpacing: -1.0,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. '
+                                  'Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur '
+                                  'nulla deserunt vel. Iusto corrupti dicta.',
+                              style: GoogleFonts.inter(
+                                fontSize: isDesktop ? 18.0 : 15.0,
+                                fontWeight: FontWeight.w400,
+                                fontStyle: FontStyle.normal,
+                                height: 26.0 / 18.0,
+                                letterSpacing: 0.0,
+                                color: const Color(0xFFFFFFFF),
                               ),
                             ),
                           ],
-                        )
-                      else
-                        IconButton(
-                          icon: const Icon(Icons.menu, color: Colors.white),
-                          onPressed: () {},
                         ),
-                    ],
-                  ),
-                ),
-
-                const Spacer(),
-                const Spacer(),
-              ],
-            ),
-          ),
-
-          // HERO CONTENT
-          Positioned(
-            left: 150,
-            top: 200,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Heading Title
-                Text(
-                  'Heading :',
-                  style: TextStyle(
-                    fontSize: isDesktop ? 64 : 40,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    letterSpacing: -1.0,
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                // Paragraph Description
-                SizedBox(
-                  width: isDesktop ? 540 : double.infinity,
-                  child: Text(
-                    'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. '
-                    'Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur '
-                    'nulla deserunt vel. Iusto corrupti dicta.',
-                    style: GoogleFonts.inter(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w400,
-                      // Regular weight
-                      fontStyle: FontStyle.normal,
-                      height: 26.0 / 18.0,
-                      // line-height: 26px (Flutter height is a multiplier of fontSize, ~1.444)
-                      letterSpacing: 0.0,
-                      // letter-spacing: 0%
-                      color: Color(0xFFFFFFFF),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
 
-          Positioned(
-            right: 0,
-            bottom: 0,
-            child: Row(
-              children: [
-                Image.asset("assets/images/roboticon.png",scale: 4,),
-                Image.asset("assets/images/arrowupicon.png",scale: 4,),
-              ],
+          // 4. Bottom-Right Icons (Responsive sizing & safe alignment)
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset("assets/images/roboticon.png", scale: isDesktop ? 4 : 6),
+                  const SizedBox(width: 8),
+                  Image.asset("assets/images/arrowupicon.png", scale: isDesktop ? 4 : 6),
+                ],
+              ),
             ),
           ),
         ],
@@ -206,12 +237,12 @@ class HeroScreen extends StatelessWidget {
     return Column(
       children: List.generate(
         rows,
-        (r) => Padding(
+            (r) => Padding(
           padding: const EdgeInsets.only(bottom: 5.0),
           child: Row(
             children: List.generate(
               cols,
-              (c) => Container(
+                  (c) => Container(
                 margin: const EdgeInsets.only(right: 5.0),
                 width: 2.0,
                 height: 2.0,
